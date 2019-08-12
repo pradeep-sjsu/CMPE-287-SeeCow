@@ -14,6 +14,7 @@ pip pip install -U Flask
 python -m pip install pymongo[srv]
 pip install flask_restful
 pip install Flask-PyMongo
+pip install -U flask-cors
 
 Set up virtual python environment for SeeCow and initiate the API Server using flask
 
