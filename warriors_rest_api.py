@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from flask_pymongo import PyMongo
 import pymongo
 from bson.json_util import dumps
@@ -8,6 +9,8 @@ import math
 
 
 app = Flask(__name__)
+
+cors = CORS(app, resources={r"/api/": {"origins": ""}})
 
 app.config['MONGO_DBNAME'] = 'Warriors-SeeCow'
 app.config['MONGO_URI'] = 'mongodb+srv://warriors:warriors@warriors-vc2w4.mongodb.net/test'
@@ -25,7 +28,7 @@ def hello_world():
 
 @app.route('/current_status', methods=['GET'])
 def current_status():
-    return jsonify({'result' : json.loads(dumps(CATTLE_STATUS.find().limit(5).sort("time", -1)))})
+    return jsonify({'result' : json.loads(dumps(CATTLE_STATUS.find().limit(9).sort("time", -1)))})
 
 @app.route('/cattle/<id>', methods=['GET'])
 def get_one_cattle(id):
@@ -42,8 +45,8 @@ def get_one_cattle(id):
 @app.route('/update_status/<id>/<Status>/<LOCATION>', methods=['GET','POST'])
 def update_status(id,Status,LOCATION):
 
-	NEW_CATTLE_STATUS = CATTLE_STATUS.update({'CATTLE_ID' : id}, {'CATTLE_ID' : id,'Status' : Status,'LOCATION' : LOCATION})
-	return jsonify({'New Status of CATTLE_ID' : Status})
+        NEW_CATTLE_STATUS = CATTLE_STATUS.update({'CATTLE_ID' : id}, {'CATTLE_ID' : id,'Status' : Status,'LOCATION' : LOCATION})
+        return jsonify({'New Status of CATTLE_ID' : Status})
 #   new_status_details = CATTLE_STATUS.find_one({'CATTLE_ID' : id})
 #   output = {'Status' : new_status_details['Status']}
 
