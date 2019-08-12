@@ -1,0 +1,15 @@
+python3 -m venv venv
+pip install --upgrade
+pip pip install -U Flask
+python -m pip install pymongo[srv]
+pip install flask_restful
+pip install Flask-PyMongo
+
+
+
+source venv/bin/activate
+export FLASK_APP=warriors_rest_api.py
+export FLASK_ENV=development
+flask run --host=0.0.0.0
+
+nohup flask run --host=0.0.0.0 &
